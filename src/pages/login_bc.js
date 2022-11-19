@@ -19,7 +19,7 @@ const Login = () => {
         redirectIfAuthenticated: '/dashboard',
     })
 
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [errors, setErrors] = useState([])
@@ -36,7 +36,7 @@ const Login = () => {
     const submitForm = async event => {
         event.preventDefault()
 
-        login({ email, password, remember: shouldRemember, setErrors, setStatus })
+        login({ username, password, remember: shouldRemember, setErrors, setStatus })
     }
 
     return (
@@ -54,21 +54,21 @@ const Login = () => {
                 <AuthSessionStatus className="mb-4" status={status} />
 
                 <form onSubmit={submitForm}>
-                    {/* Email Address */}
+                    {/* Username */}
                     <div>
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="username">Username</Label>
 
                         <Input
-                            id="email"
-                            type="email"
-                            value={email}
+                            id="username"
+                            type="text"
+                            value={username}
                             className="block mt-1 w-full"
-                            onChange={event => setEmail(event.target.value)}
+                            onChange={event => setUsername(event.target.value)}
                             required
                             autoFocus
                         />
 
-                        <InputError messages={errors.email} className="mt-2" />
+                        <InputError messages={errors.username} className="mt-2" />
                     </div>
 
                     {/* Password */}

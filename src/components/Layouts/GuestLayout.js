@@ -7,7 +7,7 @@ const GuestLayout = ({ children }) => {
                 <title>Laravel</title>
             </Head>
 
-            <div className="font-sans text-gray-900 antialiased">
+            <div className="font-poppins text-gray-900 antialiased">
                 {children}
             </div>
         </div>

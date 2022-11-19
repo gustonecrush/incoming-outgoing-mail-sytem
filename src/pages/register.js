@@ -15,8 +15,7 @@ const Register = () => {
         redirectIfAuthenticated: '/dashboard',
     })
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errors, setErrors] = useState([])
@@ -24,7 +23,7 @@ const Register = () => {
     const submitForm = event => {
         event.preventDefault()
 
-        register({ name, email, password, password_confirmation: passwordConfirmation, setErrors })
+        register({ username, password, password_confirmation: passwordConfirmation, setErrors })
     }
 
     return (
@@ -39,37 +38,21 @@ const Register = () => {
                 }>
 
                 <form onSubmit={submitForm}>
-                    {/* Name */}
-                    <div>
-                        <Label htmlFor="name">Name</Label>
-
-                        <Input
-                            id="name"
-                            type="text"
-                            value={name}
-                            className="block mt-1 w-full"
-                            onChange={event => setName(event.target.value)}
-                            required
-                            autoFocus
-                        />
-
-                        <InputError messages={errors.name} className="mt-2" />
-                    </div>
 
                     {/* Email Address */}
                     <div className="mt-4">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="username">Username</Label>
 
                         <Input
-                            id="email"
-                            type="email"
-                            value={email}
+                            id="username"
+                            type="text"
+                            value={username}
                             className="block mt-1 w-full"
-                            onChange={event => setEmail(event.target.value)}
+                            onChange={event => setUsername(event.target.value)}
                             required
                         />
 
-                        <InputError messages={errors.email} className="mt-2" />
+                        <InputError messages={errors.username} className="mt-2" />
                     </div>
 
                     {/* Password */}

@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import axios from '@/lib/axios'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2'
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
@@ -48,6 +49,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
                 setErrors(error.response.data.errors)
             })
+
+        Swal.fire({
+            title: 'Success!',
+            text: 'Berhasil Log In',
+            icon: 'success',
+            confirmButtonText: 'Oke',
+        })
     }
 
     const forgotPassword = async ({ setErrors, setStatus, email }) => {
@@ -74,7 +82,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
         axios
             .post('/reset-password', { token: router.query.token, ...props })
-            .then(response => router.push('/login?reset=' + btoa(response.data.status)))
+            .then(response =>
+                router.push('/login?reset=' + btoa(response.data.status)),
+            )
             .catch(error => {
                 if (error.response.status !== 422) throw error
 
@@ -89,18 +99,28 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     const logout = async () => {
-        if (! error) {
-            await axios
-                .post('/logout')
-                .then(() => mutate())
+        if (!error) {
+            await axios.post('/logout').then(() => mutate())
         }
 
-        window.location.pathname = '/login'
+        Swal.fire({
+            title: 'Success!',
+            text: 'Berhasil Log Out',
+            icon: 'success',
+            confirmButtonText: 'Oke',
+        })
+
+        window.location.pathname = '/'
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
-        if (window.location.pathname === "/verify-email" && user?.email_verified_at) router.push(redirectIfAuthenticated)
+        if (middleware === 'guest' && redirectIfAuthenticated && user)
+            router.push(redirectIfAuthenticated)
+        if (
+            window.location.pathname === '/verify-email' &&
+            user?.email_verified_at
+        )
+            router.push(redirectIfAuthenticated)
         if (middleware === 'auth' && error) logout()
     }, [user, error])
 
