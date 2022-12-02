@@ -1,7 +1,9 @@
 # DOCUMENTATION
 
 ## ABOUT
-Hulu clone is an UI web application which is built using Next Js as frontend framework and tailwind CSS as styling framework. This clone fetch the data from API The Movie Database that you can get from api.themoviedb.org. The making of this clone is instructed by <a href="https://youtu.be/MqDlsjc8GLo">Sonny Sangha</a>.
+Si Suka stands for Incoming and Outgoing Mail Information System which is the author's practical work report project and at the same time will also become an icon of the practical work report that the author made.
+
+The name Si Suka itself was inspired by the name of an application that is also in the Palembang Class I Radio Frequency Spectrum Monitoring Center, namely Si Maya. The creation of Si Like is the result of direct research and the results of consultation with the Staff of the Palembang Class 1 Radio Frequency Spectrum Monitoring Center.
 
 ## START PROJECT
 
