@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 function SuratKeluar() {
     // variable to store data surat keluar
     const [suratKeluar, setSuratKeluar] = useState([])
+    const [total, setTotal] = useState()
 
     // function to fetch data surat keluar
     const fetchSuratKeluar = async () => {
@@ -14,6 +15,7 @@ function SuratKeluar() {
             const { data } = await axios.get(
                 `http://localhost:8000/api/surat-keluar`,
             )
+            setTotal(data.total)
             setSuratKeluar(data.data)
         } catch (error) {
             console.log(error.message)
@@ -33,7 +35,13 @@ function SuratKeluar() {
             </Head>
 
             {/* Body */}
-            <Body surat={suratKeluar} fetchSurat={fetchSuratKeluar} active={"Surat Keluar"} api={"surat-keluar"} />
+            <Body
+                surat={suratKeluar}
+                fetchSurat={fetchSuratKeluar}
+                active={'Surat Keluar'}
+                api={'surat-keluar'}
+                total={total}
+            />
         </AppLayout>
     )
 }

@@ -8,6 +8,7 @@ function SuratMasuk() {
 
     // variable to store data surat masuk
     const [suratMasuk, setSuratMasuk] = useState([])
+    const [total, setTotal] = useState()
 
     // function to fetch data surat masuk
     const fetchSuratMasuk = async () => {
@@ -15,6 +16,7 @@ function SuratMasuk() {
             const { data } = await axios.get(
                 `http://localhost:8000/api/surat-masuk`,
             )
+            setTotal(data.total)
             setSuratMasuk(data.data)
         } catch (error) {
             console.log(error.message)
@@ -34,7 +36,13 @@ function SuratMasuk() {
             </Head>
 
             {/*  Body */}
-           <Body surat={suratMasuk} fetchSurat={fetchSuratMasuk} active={"Surat Masuk"} api={"surat-masuk"} />
+            <Body
+                surat={suratMasuk}
+                total={total}
+                fetchSurat={fetchSuratMasuk}
+                active={'Surat Masuk'}
+                api={'surat-masuk'}
+            />
         </AppLayout>
     )
 }

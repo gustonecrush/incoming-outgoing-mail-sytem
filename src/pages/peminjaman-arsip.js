@@ -8,6 +8,7 @@ import { useState } from 'react'
 function PeminjamanArsip() {
     // variable to store data peminjaman arip
     const [peminjamanSurat, setPeminjamanSurat] = useState([])
+    const [total, setTotal] = useState()
 
     // function to fetch data peminjaman arip
     const fetchPeminjamanArsip = async () => {
@@ -15,6 +16,7 @@ function PeminjamanArsip() {
             const { data } = await axios.get(
                 `http://localhost:8000/api/peminjaman-arsip`,
             )
+            setTotal(data.total)
             setPeminjamanSurat(data.data)
         } catch (error) {
             console.log(error.message)
@@ -38,6 +40,7 @@ function PeminjamanArsip() {
                 fetchSurat={fetchPeminjamanArsip}
                 active={'Peminjaman Arsip'}
                 api={"peminjaman-arsip"}
+                total={total}
             />
         </AppLayout>
     )

@@ -6,7 +6,7 @@ import Header from './Dashboard/Header'
 import Table from './Dashboard/Table'
 import Footer from './Footer'
 
-function Main({ surat = [], fetchSurat = null, active = '', api = '' }) {
+function Main({ surat = [], fetchSurat = null, active = '', api = '', total = 0 }) {
     return (
         <div className="w-9/12 h-full">
             <Header />
@@ -110,6 +110,7 @@ function Main({ surat = [], fetchSurat = null, active = '', api = '' }) {
                         active={active}
                         api={api}
                         id={'table'}
+                        total={total}
                     />
                 </div>
             )}

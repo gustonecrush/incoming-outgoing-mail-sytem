@@ -1,17 +1,18 @@
 import axios from '@/lib/axios'
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import BtnEditDataArsip from './BtnEditDataArsip'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import BtnEditData from './BtnEditData'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import ReactPaginate from 'react-paginate'
 
-function Table({ data, fetchSurat, active, api, id }) {
+function Table({ data, fetchSurat, active, api, id, total }) {
     const [keyword, setKeyword] = useState('')
+    const [activePage, setActivePage] = useState(1)
+    const [blog, setBlogs] = useState([])
 
     const sweetConfirm = async (title, message, callback) => {
         Swal.fire({
@@ -61,15 +62,39 @@ function Table({ data, fetchSurat, active, api, id }) {
         )
     }
 
+    const fetchBlogs = async () => {
+        try {
+            const { data } = await axios.get(
+                `http://localhost:8000/api/${api}?page=${activePage}`,
+            )
+            setBlogs(data.data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     useEffect(() => {
-        fetchSurat()
+        fetchBlogs()
     }, [])
+
+    const handlePageClick = async data => {
+        let currentPage = data.selected + 1
+        const url = `http://localhost:8000/api/${api}?page=${currentPage}`
+        const response = await axios.get(url)
+        console.log('response', response.data.data)
+        setBlogs(response.data.data)
+    }
+
+    console.log(blog)
 
     return (
         <div className="border-black border-2 py-10 px-8 mt-10 rounded-lg bg-green-200">
+            {/* Heading Text */}
             <p className="font-bold text-3xl text-center w-full border-b-2 border-b-black pb-5">
                 Data {active}
             </p>
+
+            {/* Header Menu */}
             <div className="flex justify-between mt-5">
                 <div className="buttons flex">
                     <button
@@ -95,6 +120,8 @@ function Table({ data, fetchSurat, active, api, id }) {
                     />
                 </div>
             </div>
+
+            {/* Tables */}
             <div className="flex flex-col rounded-lg mt-5">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 rounded-lg">
                     <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 rounded-lg">
@@ -319,7 +346,7 @@ function Table({ data, fetchSurat, active, api, id }) {
                                             </tr>
                                         </thead>
 
-                                        {data
+                                        {blog
                                             .filter(value => {
                                                 if (keyword === '') {
                                                     return value
@@ -437,6 +464,41 @@ function Table({ data, fetchSurat, active, api, id }) {
                     </div>
                 </div>
             </div>
+
+            {/* Pagination */}
+            <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                pageCount={total / 5}
+                marginPagesDisplayed={3}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName={
+                    'isolate inline-flex -space-x-px rounded-md shadow-sm mt-4 self-end'
+                }
+                pageClassName={'page-item'}
+                pageLinkClassName={
+                    'relative inline-flex px-4 items-center border border-gray-300 bg-white px-4 py-2 text-lg text-gray-600 hover:bg-gray-50 focus:z-20'
+                }
+                previousClassName={'page-item'}
+                previousLinkClassName={
+                    'relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-lg font-medium text-black hover:bg-gray-50 focus:z-20'
+                }
+                nextClassName={'page-item'}
+                nextLinkClassName={
+                    'relative z-10 inline-flex px-4 py-2  items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-lg font-medium text-black hover:bg-gray-50 focus:z-20'
+                }
+                breakLinkClassName={
+                    'relative  inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-lg font-medium text-black'
+                }
+                breakClassName={
+                    'relative z-10 inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-lg font-medium text-black'
+                }
+                activeClassName={
+                    'relative z-10 inline-flex items-center text-lg font-bold text-black focus:z-20'
+                }
+            />
         </div>
     )
 }
