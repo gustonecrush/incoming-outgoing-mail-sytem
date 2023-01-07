@@ -9,7 +9,7 @@ function BtnEditData({ item, fetchSurat, active, api }) {
     const [tanggalSurat, setTanggalSurat] = useState(item?.tanggal_surat)
     const [nomorSurat, setNomorSurat] = useState(item?.nomor_surat)
     const [asal, setAsal] = useState(item?.asal)
-    const [tujuan, setTujuan] = useState(item?.tujuan)
+    const [tujuan, setTujuan] = useState(item?.asal)
     const [kodeKlasifikasi, setKodeKlasifikasi] = useState(
         item?.kode_klasifikasi,
     )
@@ -339,8 +339,8 @@ function BtnEditData({ item, fetchSurat, active, api }) {
                                         /> */}
                                     </div>
 
-                                    <div className="">
-                                        <label
+                                    {/* <div className=""> */}
+                                        {/* <label
                                             for="dokumen"
                                             className="block mb-2 text-lg font-medium text-black">
                                             Upload Berkas
@@ -359,12 +359,12 @@ function BtnEditData({ item, fetchSurat, active, api }) {
                                         />
                                         <p className="text-sm text-red-600 mt-3">
                                             *format dokumen pdf
-                                        </p>
+                                        </p> */}
                                         {/* <InputError
                                             messages={errors.dokumen}
                                             className="mt-2"
                                         /> */}
-                                    </div>
+                                    {/* </div> */}
 
                                     <hr className="border-black" />
 

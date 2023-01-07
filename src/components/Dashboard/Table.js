@@ -419,7 +419,12 @@ function Table({ data, fetchSurat, active, api, id, total }) {
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap text-lg font-medium text-gray-900 border-r border-black">
                                                             <a
-                                                                href={`http://localhost:8000/public/storage\\${item?.dokumen}`}>
+                                                                href={
+                                                                    api ==
+                                                                    'surat-masuk'
+                                                                        ? `http://localhost:8000/api/surat-masuk/download/${item?.session_id}`
+                                                                        : `http://localhost:8000/api/surat-keluar/download/${item?.session_id}`
+                                                                }>
                                                                 {
                                                                     item?.original_name_dokumen
                                                                 }
