@@ -227,7 +227,6 @@ function BtnTambahDataArsip({ fetchSurat, active, api }) {
                                             id="tanggal_pengembalian"
                                             placeholder="Masukkan Kode Filling"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            required
                                             onChange={e =>
                                                 setTanggalPengembalian(
                                                     e.target.value,
