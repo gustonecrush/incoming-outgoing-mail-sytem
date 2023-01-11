@@ -147,7 +147,7 @@ function BtnTambahDataArsip({ fetchSurat, active, api }) {
                                         <label
                                             for="jenis_arsip"
                                             className="block mb-2 text-lg font-medium text-black">
-                                            Jenis Arsip
+                                            Nomor Arsip
                                         </label>
                                         <input
                                             type="text"

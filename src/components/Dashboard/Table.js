@@ -151,7 +151,7 @@ function Table({ data, fetchSurat, active, api, id, total }) {
                                                 <th
                                                     scope="col"
                                                     className="text-lg font-bold text-gray-900 px-6 py-4 border-r border-black">
-                                                    Jenis Arsip
+                                                    Nomor Arsip
                                                 </th>
                                                 <th
                                                     scope="col"
